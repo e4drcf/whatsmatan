@@ -5,13 +5,13 @@ import (
 	"fmt"
 	"path/filepath"
 
-	_ "github.com/mattn/go-sqlite3"
 	"github.com/skip2/go-qrcode"
 	"go.mau.fi/whatsmeow"
 	"go.mau.fi/whatsmeow/store"
 	"go.mau.fi/whatsmeow/store/sqlstore"
 	waLog "go.mau.fi/whatsmeow/util/log"
 	"google.golang.org/protobuf/proto"
+	_ "modernc.org/sqlite" // pure-Go SQLite driver (no CGo)
 )
 
 func init() {
@@ -29,8 +29,8 @@ func Build(ctx context.Context, dataDir string, debug bool) (*whatsmeow.Client, 
 		level = "DEBUG"
 	}
 	dbLog := waLog.Stdout("DB", level, true)
-	container, err := sqlstore.New(ctx, "sqlite3",
-		fmt.Sprintf("file:%s?_foreign_keys=on", dbPath), dbLog)
+	container, err := sqlstore.New(ctx, "sqlite",
+		fmt.Sprintf("file:%s?_pragma=foreign_keys(1)&_pragma=journal_mode(wal)", dbPath), dbLog)
 	if err != nil {
 		return nil, fmt.Errorf("sqlstore: %w", err)
 	}
