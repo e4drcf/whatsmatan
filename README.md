@@ -6,11 +6,30 @@ WhatsApp userbot that transcribes voice messages with local whisper.cpp.
 - Small web UI to pick which chats to track.
 - When a voice/PTT message arrives in a tracked chat, downloads it, decodes with `ffmpeg`, transcribes with `whisper-cli`, replies in-thread with the text.
 
-## Requirements
+## Quick start
+
+One-shot bootstrap of Go, ffmpeg, whisper.cpp, a model, and the `whatsmatan` binary:
+
+```sh
+# macOS (Intel + Apple Silicon)
+./scripts/install-macos.sh
+
+# Linux (Debian/Ubuntu, Fedora/RHEL, Arch)
+./scripts/install-linux.sh
+# or with CUDA: CUDA=1 ./scripts/install-linux.sh
+
+# Windows (PowerShell, Windows 10/11 with winget)
+powershell -ExecutionPolicy Bypass -File .\scripts\install-windows.ps1
+```
+
+Override defaults with env vars: `WHISPER_DIR=/opt/whisper.cpp MODEL=base ./scripts/install-linux.sh`.
+See [`scripts/README.md`](scripts/README.md) for the full table.
+
+## Requirements (if installing manually)
 
 - Go 1.23+
 - `ffmpeg` on `$PATH` (or pass `--ffmpeg`)
-- `whisper.cpp` built with the `whisper-cli` binary (`make` in the whisper.cpp repo). Set `--whisper-cli` and `--whisper-model` to the binary and a `.bin` ggml model.
+- `whisper.cpp` built with the `whisper-cli` binary. On Apple Silicon build with `-DGGML_METAL=1`; with `-DGGML_CUDA=1` on Nvidia. Set `--whisper-cli` and `--whisper-model` to the binary and a `.bin` ggml model.
 
 Get a model, e.g.:
 
