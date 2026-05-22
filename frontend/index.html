@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>whatsmatan — voice transcription</title>
+  <style>
+    :root {
+      --bg: #0f1419;
+      --panel: #182026;
+      --line: #2a3640;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --accent: #25d366;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    header { padding: 16px 20px; border-bottom: 1px solid var(--line);
+      display: flex; justify-content: space-between; align-items: center; }
+    h1 { margin: 0; font-size: 18px; font-weight: 600; }
+    .status { font-size: 13px; color: var(--muted); }
+    .status.ok { color: var(--accent); }
+    main { max-width: 720px; margin: 0 auto; padding: 16px 20px; }
+    .toolbar { display: flex; gap: 8px; margin-bottom: 12px; }
+    .toolbar input, .toolbar select {
+      background: var(--panel); border: 1px solid var(--line); color: var(--text);
+      padding: 8px 10px; border-radius: 6px; font-size: 14px;
+    }
+    .toolbar input { flex: 1; }
+    ul.chats { list-style: none; margin: 0; padding: 0;
+      border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+    li.chat { display: flex; align-items: center; gap: 12px;
+      padding: 10px 14px; border-bottom: 1px solid var(--line);
+      cursor: pointer; transition: background 0.1s; }
+    li.chat:last-child { border-bottom: none; }
+    li.chat:hover { background: var(--panel); }
+    li.chat input[type=checkbox] { width: 18px; height: 18px; accent-color: var(--accent); cursor: pointer; }
+    .name { flex: 1; font-size: 14px; }
+    .badge { font-size: 11px; color: var(--muted); text-transform: uppercase;
+      padding: 2px 6px; border: 1px solid var(--line); border-radius: 4px; }
+    .empty { padding: 24px; text-align: center; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>whatsmatan</h1>
+    <div id="status" class="status">connecting…</div>
+  </header>
+  <main>
+    <div class="toolbar">
+      <input id="filter" placeholder="filter by name…" autocomplete="off">
+      <select id="kind">
+        <option value="">all</option>
+        <option value="group">groups</option>
+        <option value="dm">DMs</option>
+      </select>
+    </div>
+    <ul id="chats" class="chats"><li class="empty">loading…</li></ul>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>

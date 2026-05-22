@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Fast / low-RAM launch. Uses whisper "base" model (~142 MB).
+# Copy this file to run.sh, edit paths, then `chmod +x run.sh && ./run.sh`.
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+# Adjust these to your install layout.
+WHISPER_DIR="${HOME}/whisper.cpp"
+FFMPEG_BIN="$(command -v ffmpeg)"
+
+./whatsmatan \
+  --data-dir       ./data \
+  --http-addr      :8080 \
+  --whisper-cli    "${WHISPER_DIR}/build/bin/whisper-cli" \
+  --whisper-model  "${WHISPER_DIR}/models/ggml-base.bin" \
+  --ffmpeg         "${FFMPEG_BIN}" \
+  --lang           auto \
+  --concurrency    1 \
+  --timeout        2m

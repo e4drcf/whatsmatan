@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Best Ukrainian quality. Uses whisper "large-v3-turbo" (~1.6 GB, ~2.5 GB RAM).
+# Metal-accelerated on Apple Silicon — needs whisper.cpp built with -DGGML_METAL=1.
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+WHISPER_DIR="${HOME}/whisper.cpp"
+FFMPEG_BIN="$(command -v ffmpeg)"
+
+./whatsmatan \
+  --data-dir       ./data \
+  --http-addr      :8080 \
+  --whisper-cli    "${WHISPER_DIR}/build/bin/whisper-cli" \
+  --whisper-model  "${WHISPER_DIR}/models/ggml-large-v3-turbo.bin" \
+  --ffmpeg         "${FFMPEG_BIN}" \
+  --lang           uk \
+  --concurrency    1 \
+  --timeout        5m

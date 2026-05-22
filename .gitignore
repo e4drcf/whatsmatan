@@ -1,0 +1,38 @@
+# Runtime data — session keys, tracked JIDs, cached chat list.
+# NEVER commit: contains your WhatsApp session and contacts.
+/data/
+
+# Whisper models (large binaries; download separately).
+/models/
+
+# Compiled binary.
+/whatsmatan
+/whatsmatan.exe
+
+# Local run scripts (use examples/ as templates).
+/run.sh
+/run-*.sh
+!/examples/
+
+# Local config / env files.
+.env
+.env.local
+*.local.env
+
+# SQLite leftovers if anything lands at repo root.
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+
+# Editor / OS noise.
+.DS_Store
+.idea/
+.vscode/
+.claude/
+*.swp
+
+# Go test/build artifacts.
+*.test
+*.out
+/dist/
